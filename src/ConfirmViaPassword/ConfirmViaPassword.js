@@ -73,12 +73,12 @@ class ConfirmViaPassword extends Component {
     const { address, isDisabled, request: { isSending } } = this.props;
 
     return (
-      <div className={ styles.confirmForm }>
+      <div className={styles.confirmForm}>
         <Form>
           {this.renderPassword()}
           {this.renderHint()}
           <Button
-            className={ styles.confirmButton }
+            className={styles.confirmButton}
             content={
               isSending ? (
                 <FormattedMessage id='signer.txPendingConfirm.buttons.confirmBusy' defaultMessage='Confirming...' />
@@ -89,10 +89,10 @@ class ConfirmViaPassword extends Component {
                 />
               )
             }
-            disabled={ isDisabled || isSending }
+            disabled={isDisabled || isSending}
             fluid
-            icon={ <IdentityIcon address={ address } button className={ styles.signerIcon } /> }
-            onClick={ this.handleConfirm }
+            icon={<IdentityIcon address={address} button className={styles.signerIcon} />}
+            onClick={this.handleConfirm}
           />
         </Form>
       </div>
@@ -105,17 +105,17 @@ class ConfirmViaPassword extends Component {
 
     return (
       <Input
-        focus={ isFocused }
+        focus={isFocused}
         label={
           <FormattedMessage id='signer.txPendingConfirm.password.unlock.label' defaultMessage='Account Password' />
         }
-        onChange={ this.handleChange }
-        placeholder={ formatMessage({
+        onChange={this.handleChange}
+        placeholder={formatMessage({
           defaultMessage: 'unlock the account',
           id: 'signer.txPendingConfirm.password.unlock.hint'
-        }) }
+        })}
         type='password'
-        value={ password }
+        value={password}
       />
     );
   }
@@ -130,13 +130,13 @@ class ConfirmViaPassword extends Component {
     }
 
     return (
-      <div className={ styles.passwordHint }>
+      <div className={styles.passwordHint}>
         <FormattedMessage
           id='signer.txPendingConfirm.passwordHint'
           defaultMessage='(hint) {passwordHint}'
-          values={ {
+          values={{
             passwordHint
-          } }
+          }}
         />
       </div>
     );
