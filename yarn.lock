@@ -91,7 +91,7 @@
     qs "^6.5.0"
     whatwg-fetch "^2.0.3"
 
-"@parity/jsonrpc@2.1.x":
+"@parity/jsonrpc@2.1.x", "@parity/jsonrpc@^2.1.5":
   version "2.1.5"
   resolved "https://registry.yarnpkg.com/@parity/jsonrpc/-/jsonrpc-2.1.5.tgz#9d2bedff6e90859dcc56f83c8a31042c4dd44849"
 
@@ -104,13 +104,15 @@
     u2f-api "0.0.9"
     u2f-api-polyfill "0.4.3"
 
-"@parity/mobx@1.0.x":
-  version "1.0.7"
-  resolved "https://registry.yarnpkg.com/@parity/mobx/-/mobx-1.0.7.tgz#b7e047abed426fef940ca81297b0c47bc71a49ad"
+"@parity/mobx@1.1.x":
+  version "1.1.1"
+  resolved "https://registry.yarnpkg.com/@parity/mobx/-/mobx-1.1.1.tgz#86a368ac4ebb482ae06946fee21d0c798b419951"
   dependencies:
+    "@parity/jsonrpc" "^2.1.5"
     "@parity/ledger" "^2.1.2"
+    "@parity/shared" "^2.2.23"
 
-"@parity/shared@2.2.x":
+"@parity/shared@2.2.x", "@parity/shared@^2.2.23":
   version "2.2.24"
   resolved "https://registry.yarnpkg.com/@parity/shared/-/shared-2.2.24.tgz#11bc09bbc3088f20c71004f623fa6dce21012e99"
   dependencies:
@@ -129,13 +131,13 @@
     useragent.js "^0.5.6"
     yargs "6.6.0"
 
-"@parity/ui@^3.0.25":
-  version "3.0.25"
-  resolved "https://registry.yarnpkg.com/@parity/ui/-/ui-3.0.25.tgz#2e30a0fdff1799c7b089d87fd39ac778f5e44b3a"
+"@parity/ui@3.1.x":
+  version "3.1.1"
+  resolved "https://registry.yarnpkg.com/@parity/ui/-/ui-3.1.1.tgz#96c3957897221a70b444aa1ae3d02fa47df1ffce"
   dependencies:
     "@parity/api" "2.1.x"
     "@parity/etherscan" "2.1.x"
-    "@parity/mobx" "1.0.x"
+    "@parity/mobx" "1.1.x"
     "@parity/shared" "2.2.x"
     babel-runtime "^6.26.0"
     bignumber.js "4.1.0"
