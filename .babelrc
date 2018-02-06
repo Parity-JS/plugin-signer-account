@@ -1,10 +1,17 @@
 {
-  "presets": [
-    "env",
-    "stage-0",
-    "react"
-  ],
+  "presets": ["env", "stage-0", "react"],
   "plugins": [
+    [
+      "css-modules-transform",
+      {
+        "extractCss": {
+          "dir": "./lib/",
+          "relativeRoot": "./src/",
+          "filename": "[path]/[name].css"
+        },
+        "keepImport": true
+      }
+    ],
     "transform-decorators-legacy",
     "transform-class-properties",
     "transform-object-rest-spread",
@@ -13,9 +20,7 @@
   "retainLines": true,
   "env": {
     "production": {
-      "plugins": [
-        "transform-react-remove-prop-types"
-      ]
+      "plugins": ["transform-react-remove-prop-types"]
     }
   }
 }
