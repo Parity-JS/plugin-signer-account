@@ -16,7 +16,8 @@
 
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import { inject, observer } from 'mobx-react';
+import { observer } from 'mobx-react';
+import stores from '@parity/mobx';
 import IdentityIcon from '@parity/ui/lib/IdentityIcon';
 import Button from 'semantic-ui-react/dist/commonjs/elements/Button';
 import Form from 'semantic-ui-react/dist/commonjs/collections/Form';
@@ -26,7 +27,6 @@ import pick from 'lodash/pick';
 
 import styles from './ConfirmViaPassword.css';
 
-@inject('parityAllAccountsInfoStore')
 @observer
 @injectIntl
 class ConfirmViaPassword extends Component {
@@ -48,6 +48,8 @@ class ConfirmViaPassword extends Component {
     password: ''
   };
 
+  allAccountsInfoStore = stores.parity.allAccountsInfo().get(this.context.api);
+
   handleChange = ({ target: { value } }) =>
     this.setState({
       password: value
@@ -67,60 +69,60 @@ class ConfirmViaPassword extends Component {
     }
   };
 
-  render() {
+  render () {
     const { address, isDisabled, request: { isSending } } = this.props;
 
     return (
-      <div className={styles.confirmForm}>
+      <div className={ styles.confirmForm }>
         <Form>
           {this.renderPassword()}
           {this.renderHint()}
           <Button
-            className={styles.confirmButton}
+            className={ styles.confirmButton }
             content={
               isSending ? (
-                <FormattedMessage id="signer.txPendingConfirm.buttons.confirmBusy" defaultMessage="Confirming..." />
+                <FormattedMessage id='signer.txPendingConfirm.buttons.confirmBusy' defaultMessage='Confirming...' />
               ) : (
                 <FormattedMessage
-                  id="signer.txPendingConfirm.buttons.confirmRequest"
-                  defaultMessage="Confirm Request"
+                  id='signer.txPendingConfirm.buttons.confirmRequest'
+                  defaultMessage='Confirm Request'
                 />
               )
             }
-            disabled={isDisabled || isSending}
+            disabled={ isDisabled || isSending }
             fluid
-            icon={<IdentityIcon address={address} button className={styles.signerIcon} />}
-            onClick={this.handleConfirm}
+            icon={ <IdentityIcon address={ address } button className={ styles.signerIcon } /> }
+            onClick={ this.handleConfirm }
           />
         </Form>
       </div>
     );
   }
 
-  renderPassword() {
+  renderPassword () {
     const { intl: { formatMessage }, isFocused } = this.props;
     const { password } = this.state;
 
     return (
       <Input
-        focus={isFocused}
+        focus={ isFocused }
         label={
-          <FormattedMessage id="signer.txPendingConfirm.password.unlock.label" defaultMessage="Account Password" />
+          <FormattedMessage id='signer.txPendingConfirm.password.unlock.label' defaultMessage='Account Password' />
         }
-        onChange={this.handleChange}
-        placeholder={formatMessage({
+        onChange={ this.handleChange }
+        placeholder={ formatMessage({
           defaultMessage: 'unlock the account',
           id: 'signer.txPendingConfirm.password.unlock.hint'
-        })}
-        type="password"
-        value={password}
+        }) }
+        type='password'
+        value={ password }
       />
     );
   }
 
-  renderHint() {
+  renderHint () {
     const { address } = this.props;
-    const account = this.props.parityAllAccountsInfoStore.allAccountsInfo[address];
+    const account = this.allAccountsInfoStore.allAccountsInfo[address];
     const passwordHint = (account && account.meta && account.meta.passwordHint) || null;
 
     if (!passwordHint) {
@@ -128,13 +130,13 @@ class ConfirmViaPassword extends Component {
     }
 
     return (
-      <div className={styles.passwordHint}>
+      <div className={ styles.passwordHint }>
         <FormattedMessage
-          id="signer.txPendingConfirm.passwordHint"
-          defaultMessage="(hint) {passwordHint}"
-          values={{
+          id='signer.txPendingConfirm.passwordHint'
+          defaultMessage='(hint) {passwordHint}'
+          values={ {
             passwordHint
-          }}
+          } }
         />
       </div>
     );
