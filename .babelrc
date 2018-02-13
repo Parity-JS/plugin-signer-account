@@ -1,17 +1,6 @@
 {
   "presets": ["env", "stage-0", "react"],
   "plugins": [
-    [
-      "css-modules-transform",
-      {
-        "extractCss": {
-          "dir": "./lib/",
-          "relativeRoot": "./src/",
-          "filename": "[path]/[name].css"
-        },
-        "keepImport": true
-      }
-    ],
     "transform-decorators-legacy",
     "transform-class-properties",
     "transform-object-rest-spread",
