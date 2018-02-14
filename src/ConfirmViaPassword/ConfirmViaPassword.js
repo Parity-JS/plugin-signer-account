@@ -80,6 +80,7 @@ class ConfirmViaPassword extends Component {
         <Form>
           {this.renderPassword()}
           {this.renderHint()}
+          {this.renderError()}
           <Button
             className={styles.confirmButton}
             content={
