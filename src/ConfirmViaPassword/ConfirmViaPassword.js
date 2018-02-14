@@ -36,7 +36,6 @@ class ConfirmViaPassword extends Component {
 
   static propTypes = {
     address: PropTypes.string.isRequired,
-    dataSigned: PropTypes.string,
     intl: intlShape,
     isDisabled: PropTypes.bool,
     isFocused: PropTypes.bool,
@@ -45,7 +44,9 @@ class ConfirmViaPassword extends Component {
   };
 
   state = {
-    password: ''
+    isSending: false,
+    password: '',
+    passwordError: null
   };
 
   allAccountsInfoStore = stores.parity.allAccountsInfo().get(this.context.api);
@@ -57,20 +58,22 @@ class ConfirmViaPassword extends Component {
 
   handleConfirm = () => {
     const { api } = this.context;
-    const { dataSigned, request, transaction } = this.props;
+    const { request, transaction } = this.props;
     const { password } = this.state;
 
-    if (dataSigned) {
-      api.signer.confirmRequestRaw(request.id, dataSigned);
-    } else {
-      // Note that transaction can be null, in this case confirmRequest will
-      // sign the message that was in the request
-      api.signer.confirmRequest(request.id, pick(transaction, ['condition', 'gas', 'gasPrice,']), password);
-    }
+    this.setState({ isSending: true });
+
+    // Note that transaction can be null, in this case confirmRequest will
+    // sign the message that was initially in the request
+    return api.signer
+      .confirmRequest(request.id, pick(transaction, ['condition', 'gas', 'gasPrice,']), password)
+      .then(() => this.setState({ isSending: false }))
+      .catch(error => this.setState({ isSending: false, passwordError: error.text }));
   };
 
   render () {
-    const { address, isDisabled, request: { isSending } } = this.props;
+    const { address, isDisabled } = this.props;
+    const { isSending } = this.state;
 
     return (
       <div className={styles.confirmForm}>
@@ -99,12 +102,19 @@ class ConfirmViaPassword extends Component {
     );
   }
 
+  renderError () {
+    const { passwordError } = this.state;
+
+    return <div className={styles.error}>{passwordError}</div>;
+  }
+
   renderPassword () {
     const { intl: { formatMessage }, isFocused } = this.props;
-    const { password } = this.state;
+    const { password, passwordError } = this.state;
 
     return (
       <Input
+        error={!!passwordError}
         focus={isFocused}
         label={
           <FormattedMessage id='signer.txPendingConfirm.password.unlock.label' defaultMessage='Account Password' />
