@@ -66,7 +66,7 @@ class ConfirmViaPassword extends Component {
     // Note that transaction can be null, in this case confirmRequest will
     // sign the message that was initially in the request
     return api.signer
-      .confirmRequest(request.id, pick(transaction, ['condition', 'gas', 'gasPrice,']), password)
+      .confirmRequest(request.id, pick(transaction, ['condition', 'gas', 'gasPrice']), password)
       .then(() => this.setState({ isSending: false }))
       .catch(error => this.setState({ isSending: false, passwordError: error.text }));
   };
