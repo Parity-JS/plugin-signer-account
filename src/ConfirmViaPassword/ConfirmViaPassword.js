@@ -114,20 +114,23 @@ class ConfirmViaPassword extends Component {
     const { password, passwordError } = this.state;
 
     return (
-      <Input
-        error={!!passwordError}
-        focus={isFocused}
-        label={
-          <FormattedMessage id='signer.txPendingConfirm.password.unlock.label' defaultMessage='Account Password' />
-        }
-        onChange={this.handleChange}
-        placeholder={formatMessage({
-          defaultMessage: 'unlock the account',
-          id: 'signer.txPendingConfirm.password.unlock.hint'
-        })}
-        type='password'
-        value={password}
-      />
+      <div>
+        <label>
+          <FormattedMessage id='signer.txPendingConfirm.password.unlock.label' defaultMessage='Account Password:' />
+        </label>
+        <Input
+          className={styles.passwordInput}
+          error={!!passwordError}
+          focus={isFocused}
+          onChange={this.handleChange}
+          placeholder={formatMessage({
+            defaultMessage: 'unlock the account',
+            id: 'signer.txPendingConfirm.password.unlock.hint'
+          })}
+          type='password'
+          value={password}
+        />
+      </div>
     );
   }
 
