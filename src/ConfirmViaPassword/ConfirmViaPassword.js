@@ -59,16 +59,26 @@ class ConfirmViaPassword extends Component {
   handleConfirm = () => {
     const { api } = this.context;
     const { request, transaction } = this.props;
-    const { password } = this.state;
+    const { isSending, password } = this.state;
 
-    this.setState({ isSending: true });
+    if (isSending) {
+      return;
+    }
 
-    // Note that transaction can be null, in this case confirmRequest will
-    // sign the message that was initially in the request
-    return api.signer
-      .confirmRequest(request.id, pick(transaction, ['condition', 'gas', 'gasPrice']), password)
-      .then(() => this.setState({ isSending: false }))
-      .catch(error => this.setState({ isSending: false, passwordError: error.text }));
+    this.setState({ isSending: true }, () => {
+      // Note that transaction can be null, in this case confirmRequest will
+      // sign the message that was initially in the request
+      return api.signer
+        .confirmRequest(
+          request.id,
+          pick(transaction, ['condition', 'gas', 'gasPrice']),
+          password
+        )
+        .then(() => this.setState({ isSending: false }))
+        .catch(error =>
+          this.setState({ isSending: false, passwordError: error.text })
+        );
+    });
   };
 
   render () {
@@ -84,18 +94,27 @@ class ConfirmViaPassword extends Component {
           <Button
             className={styles.confirmButton}
             content={
-              isSending ? (
-                <FormattedMessage id='signer.txPendingConfirm.buttons.confirmBusy' defaultMessage='Confirming...' />
-              ) : (
-                <FormattedMessage
-                  id='signer.txPendingConfirm.buttons.confirmRequest'
-                  defaultMessage='Confirm Request'
-                />
-              )
+              /* eslint-disable indent,react/jsx-indent-props */
+              isSending
+                ? <FormattedMessage
+                    id='signer.txPendingConfirm.buttons.confirmBusy'
+                    defaultMessage='Confirming...'
+                  />
+                : <FormattedMessage
+                    id='signer.txPendingConfirm.buttons.confirmRequest'
+                    defaultMessage='Confirm Request'
+                  />
+              /* eslint-disable indent,react/jsx-indent-props */
             }
             disabled={isDisabled || isSending}
             fluid
-            icon={<IdentityIcon address={address} button className={styles.signerIcon} />}
+            icon={
+              <IdentityIcon
+                address={address}
+                button
+                className={styles.signerIcon}
+              />
+            }
             onClick={this.handleConfirm}
           />
         </Form>
@@ -106,7 +125,11 @@ class ConfirmViaPassword extends Component {
   renderError () {
     const { passwordError } = this.state;
 
-    return <div className={styles.error}>{passwordError}</div>;
+    return (
+      <div className={styles.error}>
+        {passwordError}
+      </div>
+    );
   }
 
   renderPassword () {
@@ -116,7 +139,10 @@ class ConfirmViaPassword extends Component {
     return (
       <div>
         <label>
-          <FormattedMessage id='signer.txPendingConfirm.password.unlock.label' defaultMessage='Account Password:' />
+          <FormattedMessage
+            id='signer.txPendingConfirm.password.unlock.label'
+            defaultMessage='Account Password:'
+          />
         </label>
         <Input
           className={styles.passwordInput}
@@ -137,7 +163,8 @@ class ConfirmViaPassword extends Component {
   renderHint () {
     const { address } = this.props;
     const account = this.allAccountsInfoStore.allAccountsInfo[address];
-    const passwordHint = (account && account.meta && account.meta.passwordHint) || null;
+    const passwordHint =
+      (account && account.meta && account.meta.passwordHint) || null;
 
     if (!passwordHint) {
       return null;
