@@ -53,7 +53,7 @@
     "@parity/mobx": "1.1.x",
     "@parity/ui": "3.1.x",
     "lodash": "^4.17.11",
-    "prop-types": "^15.6.0",
+    "prop-types": "^15.6.2",
     "react-intl": "^2.7.2",
     "semantic-ui-react": "^0.78.2"
   },
