@@ -105,8 +105,8 @@
     u2f-api-polyfill "0.4.3"
 
 "@parity/mobx@1.1.x":
-  version "1.1.1"
-  resolved "https://registry.yarnpkg.com/@parity/mobx/-/mobx-1.1.1.tgz#86a368ac4ebb482ae06946fee21d0c798b419951"
+  version "1.1.4"
+  resolved "https://registry.yarnpkg.com/@parity/mobx/-/mobx-1.1.4.tgz#5c14814f8322559b4476ff7ee900f15945af8f70"
   dependencies:
     "@parity/jsonrpc" "^2.1.5"
     "@parity/ledger" "^2.1.2"
