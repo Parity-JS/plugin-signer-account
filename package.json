@@ -55,7 +55,7 @@
     "lodash": "^4.17.11",
     "prop-types": "^15.6.2",
     "react-intl": "^2.7.2",
-    "semantic-ui-react": "^0.78.2"
+    "semantic-ui-react": "^0.83.0"
   },
   "peerDependencies": {
     "mobx": "^3.4.1",
