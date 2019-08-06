@@ -1,6 +1,6 @@
 {
   "name": "@parity/plugin-signer-account",
-  "version": "1.2.56",
+  "version": "1.2.57",
   "description": "Signer plugin handler for sending transactions",
   "main": "index.js",
   "scripts": {
